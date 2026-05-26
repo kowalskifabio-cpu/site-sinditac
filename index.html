@@ -1,1 +1,588 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SINDITAC — Ao lado de quem move o Brasil</title>
+  <meta name="description" content="SINDITAC — suporte completo para transportadores autônomos de carga de Francisco Beltrão e região Sudoeste do Paraná." />
+  <style>
+    :root {
+      --azul-escuro: #002b73;
+      --azul: #053f9e;
+      --azul-claro: #0d64d8;
+      --laranja: #ff8a00;
+      --branco: #ffffff;
+      --cinza: #f3f6fb;
+      --texto: #1f2937;
+      --sombra: 0 18px 45px rgba(0, 35, 95, 0.18);
+      --radius: 24px;
+    }
 
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--texto);
+      background: var(--cinza);
+    }
+
+    a { text-decoration: none; color: inherit; }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+    }
+
+    .nav {
+      max-width: 1180px;
+      margin: auto;
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 900;
+      color: var(--azul-escuro);
+      letter-spacing: -1px;
+      font-size: 24px;
+    }
+
+    .brand-mark {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--azul-escuro), var(--azul-claro));
+      display: grid;
+      place-items: center;
+      color: var(--laranja);
+      font-size: 24px;
+      box-shadow: var(--sombra);
+    }
+
+    .menu {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--azul-escuro);
+    }
+
+    .menu a:hover { color: var(--laranja); }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border-radius: 999px;
+      padding: 13px 22px;
+      font-weight: 900;
+      border: none;
+      cursor: pointer;
+      transition: .25s;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+    }
+
+    .btn:hover { transform: translateY(-2px); }
+    .btn-primary { background: var(--laranja); color: white; }
+    .btn-blue { background: var(--azul-escuro); color: white; }
+    .btn-light { background: white; color: var(--azul-escuro); }
+    .btn-whats { background: #19b55b; color: white; }
+
+    .hero {
+      min-height: 86vh;
+      display: grid;
+      align-items: center;
+      background:
+        linear-gradient(90deg, rgba(0,43,115,0.96) 0%, rgba(0,43,115,0.78) 44%, rgba(0,43,115,0.1) 100%),
+        url('https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?auto=format&fit=crop&w=1800&q=80') center/cover;
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto -8% -20% -8%;
+      height: 220px;
+      background: white;
+      transform: rotate(-3deg);
+      border-radius: 60% 60% 0 0;
+    }
+
+    .hero-inner {
+      max-width: 1180px;
+      margin: auto;
+      padding: 80px 20px 140px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .tag {
+      display: inline-block;
+      background: rgba(255,138,0,0.18);
+      border: 1px solid rgba(255,138,0,0.5);
+      color: #ffd49a;
+      padding: 8px 14px;
+      border-radius: 999px;
+      font-weight: 900;
+      margin-bottom: 18px;
+      text-transform: uppercase;
+      font-size: 13px;
+      letter-spacing: .08em;
+    }
+
+    .hero h1 {
+      margin: 0;
+      font-size: clamp(44px, 7vw, 86px);
+      line-height: .94;
+      letter-spacing: -3px;
+      max-width: 850px;
+      font-weight: 950;
+      text-transform: uppercase;
+    }
+
+    .hero h1 span { color: var(--laranja); }
+
+    .hero p {
+      max-width: 680px;
+      margin: 24px 0 32px;
+      font-size: 21px;
+      line-height: 1.45;
+      color: rgba(255,255,255,0.92);
+      font-weight: 600;
+    }
+
+    .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+
+    section {
+      padding: 82px 20px;
+    }
+
+    .container {
+      max-width: 1180px;
+      margin: auto;
+    }
+
+    .section-title {
+      max-width: 780px;
+      margin-bottom: 34px;
+    }
+
+    .section-title .eyebrow {
+      color: var(--laranja);
+      font-weight: 950;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      font-size: 13px;
+    }
+
+    .section-title h2 {
+      margin: 8px 0 12px;
+      font-size: clamp(34px, 5vw, 56px);
+      color: var(--azul-escuro);
+      line-height: 1;
+      letter-spacing: -2px;
+      text-transform: uppercase;
+    }
+
+    .section-title p {
+      font-size: 19px;
+      line-height: 1.6;
+      color: #475569;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+
+    .card {
+      background: white;
+      border-radius: var(--radius);
+      padding: 28px;
+      box-shadow: var(--sombra);
+      border: 1px solid rgba(0,43,115,0.08);
+    }
+
+    .card .icon {
+      width: 58px;
+      height: 58px;
+      border-radius: 18px;
+      background: var(--azul-escuro);
+      color: white;
+      display: grid;
+      place-items: center;
+      font-size: 28px;
+      margin-bottom: 18px;
+    }
+
+    .card h3 {
+      color: var(--azul-escuro);
+      margin: 0 0 12px;
+      font-size: 22px;
+      text-transform: uppercase;
+    }
+
+    .card p, .card li {
+      line-height: 1.55;
+      color: #475569;
+      font-weight: 600;
+    }
+
+    .blue-band {
+      background:
+        linear-gradient(135deg, var(--azul-escuro), #001844);
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .blue-band .section-title h2,
+    .blue-band .section-title p { color: white; }
+
+    .services {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+    }
+
+    .service-card {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 22px;
+      padding: 22px;
+      min-height: 170px;
+      transition: .25s;
+    }
+
+    .service-card:hover {
+      transform: translateY(-4px);
+      background: rgba(255,255,255,0.16);
+    }
+
+    .service-card strong {
+      display: block;
+      font-size: 18px;
+      color: white;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+    }
+
+    .service-card span {
+      color: rgba(255,255,255,0.8);
+      line-height: 1.45;
+      font-weight: 600;
+    }
+
+    .highlight {
+      background: linear-gradient(135deg, #ffffff, #eaf2ff);
+      border-radius: 34px;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      box-shadow: var(--sombra);
+    }
+
+    .highlight img {
+      width: 100%;
+      height: 100%;
+      min-height: 420px;
+      object-fit: cover;
+    }
+
+    .highlight-content {
+      padding: 44px;
+      align-self: center;
+    }
+
+    .highlight-content h2 {
+      color: var(--azul-escuro);
+      font-size: clamp(32px, 4vw, 52px);
+      line-height: 1;
+      margin: 0 0 18px;
+      text-transform: uppercase;
+    }
+
+    .highlight-content h2 span { color: var(--laranja); }
+
+    .list {
+      padding-left: 0;
+      list-style: none;
+      display: grid;
+      gap: 12px;
+      margin: 24px 0;
+    }
+
+    .list li {
+      background: white;
+      padding: 14px 16px;
+      border-radius: 14px;
+      font-weight: 800;
+      color: var(--azul-escuro);
+      border-left: 5px solid var(--laranja);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+    }
+
+    .cta {
+      background:
+        linear-gradient(90deg, rgba(0,43,115,0.95), rgba(0,43,115,0.65)),
+        url('https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1800&q=80') center/cover;
+      color: white;
+      text-align: center;
+      border-radius: 34px;
+      padding: 60px 28px;
+      box-shadow: var(--sombra);
+    }
+
+    .cta h2 {
+      font-size: clamp(34px, 5vw, 62px);
+      margin: 0 0 14px;
+      line-height: 1;
+      text-transform: uppercase;
+    }
+
+    .cta h2 span { color: var(--laranja); }
+    .cta p { font-size: 20px; max-width: 760px; margin: 0 auto 26px; line-height: 1.5; }
+
+    .contact-box {
+      display: grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 24px;
+    }
+
+    .contact-info {
+      background: var(--azul-escuro);
+      color: white;
+      border-radius: var(--radius);
+      padding: 34px;
+      box-shadow: var(--sombra);
+    }
+
+    .contact-info h3 { font-size: 32px; margin: 0 0 20px; }
+    .contact-info p { line-height: 1.6; font-weight: 700; }
+
+    .footer {
+      background: #001844;
+      color: white;
+      padding: 28px 20px;
+      text-align: center;
+      font-weight: 700;
+    }
+
+    .floating-whats {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      z-index: 1001;
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: #19b55b;
+      color: white;
+      display: grid;
+      place-items: center;
+      font-size: 30px;
+      box-shadow: 0 15px 35px rgba(25,181,91,.35);
+    }
+
+    @media (max-width: 920px) {
+      .menu { display: none; }
+      .grid-3, .grid-2, .services, .highlight, .contact-box { grid-template-columns: 1fr; }
+      .hero { min-height: 78vh; }
+      .hero-inner { padding: 60px 20px 120px; }
+      .highlight img { min-height: 280px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="nav">
+      <a class="brand" href="#home">
+        <div class="brand-mark">🚚</div>
+        <div>SINDITAC</div>
+      </a>
+      <nav class="menu">
+        <a href="#quem-somos">Quem somos</a>
+        <a href="#servicos">Serviços</a>
+        <a href="#juridico">Jurídico</a>
+        <a href="#seguros">Seguros</a>
+        <a href="#associado">Seja associado</a>
+        <a href="#contato">Contato</a>
+      </nav>
+      <a class="btn btn-whats" href="https://wa.me/5546999169243" target="_blank" rel="noopener">WhatsApp</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="hero-inner">
+        <div class="tag">Sindicato dos Transportadores Autônomos de Carga</div>
+        <h1>Ao lado de quem <span>move o Brasil.</span></h1>
+        <p>Suporte completo ao transportador: regularização, defesa, seguros, crédito, contabilidade, assessoria jurídica e atendimento especializado para quem vive da estrada.</p>
+        <div class="hero-actions">
+          <a class="btn btn-whats" href="https://wa.me/5546999169243" target="_blank" rel="noopener">Falar no WhatsApp</a>
+          <a class="btn btn-primary" href="#associado">Seja Associado</a>
+          <a class="btn btn-light" href="#servicos">Conheça os Serviços</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="quem-somos">
+      <div class="container">
+        <div class="section-title">
+          <div class="eyebrow">Quem somos</div>
+          <h2>Mais que um sindicato, uma estrutura completa.</h2>
+          <p>O SINDITAC foi criado para defender, orientar e apoiar o transportador em todas as áreas necessárias para sua segurança, crescimento e tranquilidade.</p>
+        </div>
+        <div class="grid-3">
+          <div class="card">
+            <div class="icon">🎯</div>
+            <h3>Missão</h3>
+            <p>Representar e fortalecer o transportador, oferecendo suporte especializado, atendimento humanizado e soluções que tragam segurança e crescimento.</p>
+          </div>
+          <div class="card">
+            <div class="icon">🚀</div>
+            <h3>Visão</h3>
+            <p>Ser referência no setor de transporte como uma das estruturas mais completas de apoio ao transportador no Brasil.</p>
+          </div>
+          <div class="card">
+            <div class="icon">🤝</div>
+            <h3>Valores</h3>
+            <p>Compromisso, transparência, respeito, atendimento humanizado, profissionalismo, segurança e confiança.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="blue-band" id="servicos">
+      <div class="container">
+        <div class="section-title">
+          <div class="eyebrow">Serviços</div>
+          <h2>Tudo que o transportador precisa em um só lugar.</h2>
+          <p>Atendimento especializado para reduzir burocracia, proteger seus direitos e manter você focado no que importa: seguir viagem.</p>
+        </div>
+        <div class="services">
+          <div class="service-card"><strong>ANTT / RNTRC</strong><span>Cadastro, regularização, inclusão, revalidação e exclusão de placas.</span></div>
+          <div class="service-card"><strong>Licenças e AETs</strong><span>Autorizações especiais estaduais e federais com mais agilidade.</span></div>
+          <div class="service-card"><strong>Defesa de Multas</strong><span>Recursos administrativos e acompanhamento técnico.</span></div>
+          <div class="service-card"><strong>Seguros</strong><span>Suporte em seguros obrigatórios e proteção para o transportador.</span></div>
+          <div class="service-card"><strong>Jurídico</strong><span>Assessoria especializada para demandas do setor de transporte.</span></div>
+          <div class="service-card"><strong>Crédito</strong><span>Conexão com oportunidades de crédito e instituições parceiras.</span></div>
+          <div class="service-card"><strong>Contabilidade</strong><span>Organização contábil voltada ao ramo de transporte.</span></div>
+          <div class="service-card"><strong>Consultoria</strong><span>Apoio estratégico para transportadores e empresas do setor.</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="juridico">
+      <div class="container">
+        <div class="highlight">
+          <div class="highlight-content">
+            <div class="eyebrow">Assessoria Jurídica</div>
+            <h2>Defesa técnica para proteger <span>seus direitos.</span></h2>
+            <p>Nossa assessoria jurídica oferece suporte completo ao transportador, atuando na orientação, defesa e acompanhamento de demandas relacionadas ao setor.</p>
+            <ul class="list">
+              <li>Defesa em autuações e penalidades</li>
+              <li>Ações e recursos administrativos</li>
+              <li>Direito de trânsito</li>
+              <li>Atendimento especializado ao transportador</li>
+            </ul>
+            <a class="btn btn-blue" href="https://wa.me/5546999169243" target="_blank" rel="noopener">Solicitar orientação</a>
+          </div>
+          <img src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=1200&q=80" alt="Assessoria jurídica para transportadores" />
+        </div>
+      </div>
+    </section>
+
+    <section id="seguros">
+      <div class="container">
+        <div class="section-title">
+          <div class="eyebrow">Seguros e proteção</div>
+          <h2>Proteção para você, sua família e seu caminhão.</h2>
+          <p>Com parceiros especializados, o SINDITAC oferece suporte em seguros e proteção veicular voltados à realidade do transporte.</p>
+        </div>
+        <div class="grid-3">
+          <div class="card"><div class="icon">🛡️</div><h3>Obrigatórios</h3><p>Suporte em seguros obrigatórios para transportador rodoviário de carga.</p></div>
+          <div class="card"><div class="icon">🚛</div><h3>Caminhão</h3><p>Proteção para seu patrimônio e tranquilidade na estrada.</p></div>
+          <div class="card"><div class="icon">❤️</div><h3>Vida e Família</h3><p>Mais segurança para quem depende de você.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="blue-band" id="alertas">
+      <div class="container">
+        <div class="section-title">
+          <div class="eyebrow">Alertas e notícias</div>
+          <h2>Informação certa evita prejuízo.</h2>
+          <p>Acompanhe atualizações importantes sobre ANTT, fiscalizações, multas, seguros obrigatórios, CIOT, piso mínimo, legislação do transporte e notícias do setor.</p>
+        </div>
+        <div class="grid-2">
+          <div class="card"><h3>ANTT e Fiscalizações</h3><p>Fique atento às obrigações e evite autuações por falta de regularização.</p></div>
+          <div class="card"><h3>Multas e Recursos</h3><p>Entenda prazos, documentos e caminhos para defesa administrativa.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="associado">
+      <div class="container">
+        <div class="cta">
+          <h2>Faça parte de quem <span>defende o transportador.</span></h2>
+          <p>No SINDITAC, o transportador encontra apoio, segurança e uma equipe preparada para ajudar em cada desafio da estrada.</p>
+          <a class="btn btn-primary" href="https://wa.me/5546999169243?text=Olá,%20quero%20me%20associar%20ao%20SINDITAC" target="_blank" rel="noopener">Quero me associar</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="contato">
+      <div class="container">
+        <div class="section-title">
+          <div class="eyebrow">Contato</div>
+          <h2>Fale com o SINDITAC.</h2>
+          <p>Atendimento especializado, suporte completo e compromisso com o transportador.</p>
+        </div>
+        <div class="contact-box">
+          <div class="contact-info">
+            <h3>SINDITAC</h3>
+            <p><strong>Endereço:</strong><br>PR-180, nº 600<br>Área Industrial — Marmeleiro/PR<br>CEP: 85615-000</p>
+            <p><strong>Telefones / WhatsApp:</strong><br>(46) 92002-5719<br>(46) 99916-9243</p>
+            <p><strong>E-mail:</strong><br>sinditacfbassessoria@gmail.com</p>
+            <p><strong>CNPJ:</strong><br>11.393.340/0001-46</p>
+          </div>
+          <div class="card">
+            <h3>Atendimento rápido</h3>
+            <p>Use o WhatsApp para falar com a equipe, tirar dúvidas, solicitar regularização, defesa, seguros ou associação.</p>
+            <a class="btn btn-whats" href="https://wa.me/5546999169243" target="_blank" rel="noopener">Abrir WhatsApp</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <a class="floating-whats" href="https://wa.me/5546999169243" target="_blank" rel="noopener" aria-label="WhatsApp">☎</a>
+
+  <footer class="footer">
+    SINDITAC — Ao lado de quem move o Brasil. Atendimento especializado, suporte completo e compromisso com o transportador.
+  </footer>
+</body>
+</html>
